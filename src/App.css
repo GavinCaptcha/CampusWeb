@@ -3,21 +3,20 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
-  justify-content: space-between;
+  justify-content: flex-end;
   background-color: #f0f4f8;
-  padding: 10px;
 }
 
-/* Feed at the top, scrolling when overflow */
+/* Feed with scrollable posts */
 .feed {
   flex-grow: 1;
   overflow-y: auto;
   display: flex;
-  flex-direction: column-reverse; /* Newest post at the bottom, scrolling up */
+  flex-direction: column-reverse; /* Newest post appears at the bottom */
   padding-bottom: 10px;
 }
 
-/* Post bubbles */
+/* Post bubbles styling */
 .post {
   background-color: #e1e1e1;
   padding: 10px 15px;
@@ -28,14 +27,7 @@
   color: #333;
 }
 
-/* Alternate for your posts */
-.post.user {
-  background-color: #6a0dad;
-  color: white;
-  align-self: flex-end;
-}
-
-/* Input container at the bottom */
+/* Input container fixed at the bottom */
 .post-input {
   display: flex;
   padding: 10px;

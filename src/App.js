@@ -13,7 +13,7 @@ function App() {
 
   return (
     <div className="App">
-      {/* Post feed at the top */}
+      {/* Post feed */}
       <div className="feed">
         {posts.map((post, index) => (
           <div key={index} className="post">
