@@ -1,34 +1,19 @@
-import React, { useState } from "react";
+import React from 'react';
+import Chat from './Chat';  // Import your Chat component
+import './App.css';  // Import your main styles
+import './MoreInfo.css';
 
 function App() {
-  const [posts, setPosts] = useState([]);
-  const [newPost, setNewPost] = useState("");
-
-  const handlePostSubmit = () => {
-    if (newPost.trim()) {
-      setNewPost([{ content: newPost, likes: 0, dislikes: 0, comments: [] }, ...posts]);
-    }
-  };
-
   return (
     <div className="App">
-      <div className="post-input">
-        <input
-          type="text"
-          value={newPost}
-          onChange={(e) => setNewPost(e.target.value)}
-          placeholder="Write Something..."
-        />
-        <button onClick={handlePostSubmit}Post/>
-      </div>
-
-
-      <div className="feed">
-        {posts.map((post, index) => (
-          <div key={index} className="post">
-            <p>{post.content}</p>
-          </div>
-        ))} 
+      <h1>CampusShout!</h1>
+      <Chat />
+      <div id="more-info" className="more-info">
+        <h2>About the Developer</h2>
+        <p>Hi, I'm Gavin McAllister, the developer behind CampusShout. I created this platform to give college students a space to voice their thoughts and connect with others who understand their experiences. If you like what you see, feel free to support the project!</p>
+        <a href="https://www.paypal.com/donate" target="_blank" rel="noopener noreferrer" className="donate-button">
+          Donate to the Project
+        </a>
       </div>
     </div>
   );
