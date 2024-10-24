@@ -46,6 +46,76 @@
 
 .App-link:hover {
   background-color: #9b30ff;
+<<<<<<< HEAD
+=======
+}
+
+/* Add better styling for input fields and buttons */
+.post-input input {
+  width: 100%;
+  max-width: 600px;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  font-size: 1.1em;
+}
+
+.post-input button {
+  padding: 10px 20px;
+  background-color: #6a0dad;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.post-input button:hover {
+  background-color: #9b30ff;
+}
+
+/* Posts feed layout */
+.feed {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.post {
+  background-color: #fff;
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.post p {
+  font-size: 1.2em;
+  color: #333;
+}
+
+.post button {
+  background-color: #6a0dad;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  margin-right: 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.3s ease;
+}
+
+.post button:hover {
+  background-color: #9b30ff;
+}
+
+.post-likes {
+  font-size: 0.9em;
+  color: #555;
+>>>>>>> 9696a08d48198b2c13e19be7d8664251f988ab46
 }
 
 /* Add better styling for input fields and buttons */
