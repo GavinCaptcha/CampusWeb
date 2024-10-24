@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import '/App.css';
+import './App.css';
+import './Chat.css';
 
 function App() {
   const [posts, setPosts] = useState([]);
