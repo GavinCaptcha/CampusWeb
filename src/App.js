@@ -1,7 +1,4 @@
 import React, { useState } from 'react';
-import Chat from './Chat';  // Import your Chat component
-import './App.css';  // Import your main styles
-import './MoreInfo.css';
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -16,6 +13,16 @@ function App() {
 
   return (
     <div className="App">
+      {/* Post feed at the top */}
+      <div className="feed">
+        {posts.map((post, index) => (
+          <div key={index} className="post">
+            <p>{post.content}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Input field at the bottom */}
       <div className="post-input">
         <input 
           type="text" 
@@ -24,14 +31,6 @@ function App() {
           placeholder="Write something..." 
         />
         <button onClick={handlePostSubmit}>Post</button>
-      </div>
-      
-      <div className="feed">
-        {posts.map((post, index) => (
-          <div key={index} className="post">
-            <p>{post.content}</p>
-          </div>
-        ))}
       </div>
     </div>
   );
