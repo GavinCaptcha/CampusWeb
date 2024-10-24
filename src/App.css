@@ -2,21 +2,24 @@
 .App {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100vh;  /* Full viewport height */
   justify-content: flex-end;
   background-color: #f0f4f8;
 }
 
-/* Feed with scrollable posts */
+/* Feed area - fill the space above the input */
 .feed {
   flex-grow: 1;
   overflow-y: auto;
   display: flex;
-  flex-direction: column-reverse; /* Newest post appears at the bottom */
-  padding-bottom: 10px;
+  flex-direction: column-reverse; /* Newest posts at the bottom */
+  padding: 10px;
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+  width: 100%;
 }
 
-/* Post bubbles styling */
+/* Post bubbles */
 .post {
   background-color: #e1e1e1;
   padding: 10px 15px;
@@ -33,6 +36,9 @@
   padding: 10px;
   background-color: #fff;
   border-top: 1px solid #ccc;
+  position: sticky;  /* Stick to bottom */
+  bottom: 0;
+  width: 100%;
 }
 
 .post-input input {
