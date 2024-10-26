@@ -33,18 +33,20 @@
   transition: opacity 0.3s ease;
 }
 
-/* Sent messages (aligned to the right) */
+/* Sent messages (aligned to the right for current user) */
 .post.sent {
   background-color: #87ceeb;
-  align-self: flex-end; /* Align to the right */
+  align-self: flex-end; /* Aligns to the right */
   border-bottom-right-radius: 0;
+  text-align: right; /* Ensures text is aligned right */
 }
 
-/* Received messages (aligned to the left) */
+/* Received messages (aligned to the left for others) */
 .post.received {
   background-color: #d1e7dd;
-  align-self: flex-start; /* Align to the left */
+  align-self: flex-start; /* Aligns to the left */
   border-bottom-left-radius: 0;
+  text-align: left; /* Ensures text is aligned left */
 }
 
 /* Input container at the bottom */
