@@ -45,7 +45,7 @@
   display: flex;
   flex-direction: column-reverse;
   padding: 10px;
-  background-color: #e8e8e8;
+  background-color: #383030;
   border-bottom: 1px solid #ccc;
   width: 100%;
   position: relative;
@@ -58,9 +58,15 @@
   border-radius: 20px;
   max-width: 80%;
   color: #333;
+  background-color: rgba(225, 225, 225, 0.8); /* Light grey with opacity */
+  opacity: 0.9; /* Adjust opacity level for the entire message */
+  transition: opacity 0.3s ease; /* Smooth opacity transition */
   position: relative;
   z-index: 1;
-  color: white;
+}
+
+post:hover {
+  opacity: 1;
 }
 
 .post strong {
@@ -90,7 +96,7 @@
 
 .post-input button {
   padding: 10px 20px;
-  background-color: #add8e6; /* Light blue color */
+  background-color: #57ff65; /* Light blue color */
   color: white;
   border: none;
   border-radius: 25px;
@@ -100,5 +106,5 @@
 }
 
 .post-input button:hover {
-  background-color: #87ceeb;
+  background-color: #3efcbd;
 }
