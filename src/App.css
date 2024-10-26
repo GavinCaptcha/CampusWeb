@@ -2,24 +2,38 @@
 .App {
   display: flex;
   flex-direction: column;
-  height: 100vh;  /* Full viewport height */
+  height: 100vh;
   justify-content: flex-end;
-  background-color: #333;
+  background-color: #f0f4f8;
 }
 
-/* Feed area - fill the space above the input */
+/* Feed with light grey background and watermark text */
 .feed {
   flex-grow: 1;
   overflow-y: auto;
   display: flex;
-  flex-direction: column-reverse; /* Newest posts at the bottom */
+  flex-direction: column-reverse;
   padding: 10px;
-  background-color: #635f5f;
-  border-bottom: 1px solid #000000;
+  background-color: #e8e8e8; /* Lighter grey background */
+  border-bottom: 1px solid #ccc;
   width: 100%;
+  position: relative;
 }
 
-/* Post bubbles */
+/* Watermark text */
+.feed::before {
+  content: "CampusShout";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 5em;
+  color: rgba(100, 100, 100, 0.1); /* Light grey with low opacity */
+  z-index: 0;
+  pointer-events: none; /* Allows clicking through the watermark */
+}
+
+/* Post bubbles styling */
 .post {
   background-color: #e1e1e1;
   padding: 10px 15px;
@@ -28,6 +42,8 @@
   max-width: 80%;
   align-self: flex-start;
   color: #333;
+  position: relative;
+  z-index: 1; /* Ensures posts appear above the watermark */
 }
 
 /* Input container fixed at the bottom */
@@ -36,7 +52,7 @@
   padding: 10px;
   background-color: #fff;
   border-top: 1px solid #ccc;
-  position: sticky;  /* Stick to bottom */
+  position: sticky;
   bottom: 0;
   width: 100%;
 }
@@ -49,9 +65,10 @@
   font-size: 1.1em;
 }
 
+/* Post button with light blue color */
 .post-input button {
   padding: 10px 20px;
-  background-color: #11bbb2;
+  background-color: #add8e6; /* Light blue color */
   color: white;
   border: none;
   border-radius: 25px;
@@ -61,5 +78,5 @@
 }
 
 .post-input button:hover {
-  background-color: #488294;
+  background-color: #87ceeb; /* Slightly darker blue on hover */
 }
