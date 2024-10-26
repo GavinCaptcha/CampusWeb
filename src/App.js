@@ -3,24 +3,14 @@ import './App.css';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/database';
 
-
-// Firebase configuration (replace with your own config details)
 const firebaseConfig = {
-
-  apiKey: "AIzaSyBVwXe8C15YyrvziNl-QbeH0HpxotxKvfg",
-
-  authDomain: "campusshout.firebaseapp.com",
-
-  projectId: "campusshout",
-
-  storageBucket: "campusshout.appspot.com",
-
-  messagingSenderId: "322098972024",
-
-  appId: "1:322098972024:web:512933aba9c2f8ada3f48d",
-
-  measurementId: "G-5L1JBVRHPZ"
-
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  databaseURL: "YOUR_DATABASE_URL",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
 };
 
 if (!firebase.apps.length) {
@@ -35,6 +25,7 @@ function App() {
   const [username, setUsername] = useState(localStorage.getItem("username") || "");
   const [userColor, setUserColor] = useState(localStorage.getItem("userColor") || "");
   const [cooldown, setCooldown] = useState(false);
+  const [viewTopVoted, setViewTopVoted] = useState(false); // Toggle for top voted posts
 
   // Load posts from Firebase
   useEffect(() => {
@@ -63,7 +54,7 @@ function App() {
   // Handle post submission with cooldown
   const handlePostSubmit = () => {
     if (newPost.trim() && username.trim() && !cooldown) {
-      const newPostObj = { content: newPost, user: username, color: userColor, timestamp: Date.now() };
+      const newPostObj = { content: newPost, user: username, color: userColor, likes: 0, timestamp: Date.now() };
       database.ref("posts").push(newPostObj);
       setNewPost(""); // Clear input field
       setCooldown(true); // Start cooldown
@@ -73,8 +64,32 @@ function App() {
     }
   };
 
+  // Handle liking a post
+  const handleLike = (postId, currentLikes) => {
+    const postRef = database.ref(`posts/${postId}`);
+    postRef.update({ likes: currentLikes + 1 });
+  };
+
+  // Toggle between main feed and top-voted view
+  const toggleViewTopVoted = () => {
+    setViewTopVoted(!viewTopVoted);
+  };
+
+  // Sort posts by likes for top-voted view
+  const displayedPosts = viewTopVoted
+    ? [...posts].sort((a, b) => b.likes - a.likes) // Sort by likes in descending order
+    : posts;
+
   return (
     <div className="App">
+      {/* Top tabs for toggling views */}
+      <div className="tabs">
+        <button onClick={toggleViewTopVoted}>
+          {viewTopVoted ? "View All Posts" : "View Top Voted"}
+        </button>
+      </div>
+
+      {/* Username setup section */}
       {!localStorage.getItem("username") && (
         <div className="username-setup">
           <input 
@@ -87,8 +102,9 @@ function App() {
         </div>
       )}
 
+      {/* Post feed */}
       <div className="feed">
-        {posts.map((post, index) => (
+        {displayedPosts.map((post, index) => (
           <div
             key={index}
             className={`post ${post.user === username ? 'sent' : 'received'}`} 
@@ -96,6 +112,11 @@ function App() {
           >
             <strong>{post.user}</strong>
             <p>{post.content}</p>
+            <div className="like-section">
+              <button onClick={() => handleLike(post.timestamp, post.likes)}>
+                👍 {post.likes || 0} Likes
+              </button>
+            </div>
           </div>
         ))}
       </div>

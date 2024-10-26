@@ -82,3 +82,56 @@
 .post-input button:hover {
   background-color: #87ceeb;
 }
+
+/* Top tabs styling */
+.tabs {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ccc;
+}
+
+.tabs button {
+  padding: 10px 20px;
+  background-color: #add8e6;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin: 0 5px;
+}
+
+.tabs button:hover {
+  background-color: #87ceeb;
+}
+
+/* Chat bubbles */
+.post {
+  padding: 10px 15px;
+  margin: 5px;
+  border-radius: 20px;
+  max-width: 60%;
+  color: white;
+  position: relative;
+  z-index: 1;
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
+}
+
+/* Like button styling */
+.like-section button {
+  background: transparent;
+  border: none;
+  color: #333;
+  cursor: pointer;
+  font-size: 0.9em;
+  margin-top: 5px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.like-section button:hover {
+  color: #ff5722;
+}
