@@ -36,14 +36,14 @@
 /* Sent messages (aligned to the right) */
 .post.sent {
   background-color: #87ceeb;
-  align-self: flex-end;
+  align-self: flex-end; /* Align to the right */
   border-bottom-right-radius: 0;
 }
 
 /* Received messages (aligned to the left) */
 .post.received {
   background-color: #d1e7dd;
-  align-self: flex-start;
+  align-self: flex-start; /* Align to the left */
   border-bottom-left-radius: 0;
 }
 
