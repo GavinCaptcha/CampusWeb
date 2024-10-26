@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/CampusWeb/static/css/main.19f98db6.css",
-    "main.js": "/CampusWeb/static/js/main.f0ae3ef2.js",
+    "main.css": "/CampusWeb/static/css/main.43bc3c26.css",
+    "main.js": "/CampusWeb/static/js/main.b6c8fc99.js",
     "static/js/453.41ab77aa.chunk.js": "/CampusWeb/static/js/453.41ab77aa.chunk.js",
     "index.html": "/CampusWeb/index.html",
-    "main.19f98db6.css.map": "/CampusWeb/static/css/main.19f98db6.css.map",
-    "main.f0ae3ef2.js.map": "/CampusWeb/static/js/main.f0ae3ef2.js.map",
+    "main.43bc3c26.css.map": "/CampusWeb/static/css/main.43bc3c26.css.map",
+    "main.b6c8fc99.js.map": "/CampusWeb/static/js/main.b6c8fc99.js.map",
     "453.41ab77aa.chunk.js.map": "/CampusWeb/static/js/453.41ab77aa.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.19f98db6.css",
-    "static/js/main.f0ae3ef2.js"
+    "static/css/main.43bc3c26.css",
+    "static/js/main.b6c8fc99.js"
   ]
 }
