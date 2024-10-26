@@ -7,7 +7,38 @@
   background-color: #f0f4f8;
 }
 
-/* Feed with light grey background and watermark text */
+/* Username setup section */
+.username-setup {
+  display: flex;
+  padding: 10px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ccc;
+}
+
+.username-setup input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  font-size: 1.1em;
+}
+
+.username-setup button {
+  padding: 10px 20px;
+  background-color: #87ceeb; /* Light blue color */
+  color: white;
+  border: none;
+  border-radius: 25px;
+  margin-left: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.username-setup button:hover {
+  background-color: #5ab1db;
+}
+
+/* Feed with light grey background */
 .feed {
   flex-grow: 1;
   overflow-y: auto;
@@ -32,19 +63,10 @@
   color: white;
 }
 
-/* Username input field */
-.username-input {
-  padding: 10px;
-  background-color: #fff;
-  border-bottom: 1px solid #ccc;
-}
-
-.username-input input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 25px;
-  font-size: 1.1em;
+.post strong {
+  display: block;
+  font-size: 0.9em;
+  margin-bottom: 5px;
 }
 
 /* Input container fixed at the bottom */
