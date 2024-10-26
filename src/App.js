@@ -4,14 +4,23 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/database';
 
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  databaseURL: "YOUR_DATABASE_URL",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+
+  apiKey: "AIzaSyBVwXe8C15YyrvziNl-QbeH0HpxotxKvfg",
+
+  authDomain: "campusshout.firebaseapp.com",
+
+  projectId: "campusshout",
+
+  storageBucket: "campusshout.appspot.com",
+
+  messagingSenderId: "322098972024",
+
+  appId: "1:322098972024:web:512933aba9c2f8ada3f48d",
+
+  measurementId: "G-5L1JBVRHPZ"
+
 };
+
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
@@ -136,3 +145,4 @@ function App() {
 }
 
 export default App;
+
