@@ -1,55 +1,90 @@
 /* App.css */
+
 .App {
   display: flex;
   flex-direction: column;
   height: 100vh;
   justify-content: flex-end;
   background-color: #f0f4f8;
+  overflow-x: hidden;
 }
 
-/* Feed styling */
+/* Watermark Text */
+.feed::before {
+  content: "CampusShout";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 5em;
+  color: rgba(100, 100, 100, 0.1);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Feed Styling */
 .feed {
   flex-grow: 1;
   overflow-y: auto;
   display: flex;
   flex-direction: column-reverse;
   padding: 10px;
-  background-color: #e8e8e8;
+  background-color: rgba(232, 232, 232, 0.8);
   border-bottom: 1px solid #ccc;
   width: 100%;
   position: relative;
 }
 
-/* Chat bubbles */
+/* Post Bubble */
 .post {
   padding: 10px 15px;
   margin: 5px;
   border-radius: 20px;
   max-width: 60%;
   color: white;
+  opacity: 0.85;
   position: relative;
   z-index: 1;
-  opacity: 0.9;
-  transition: opacity 0.3s ease;
+  transition: background-color 0.3s ease;
 }
 
-/* Sent messages (aligned to the right for current user) */
 .post.sent {
-  background-color: #87ceeb;
-  align-self: flex-end; /* Aligns to the right */
+  background-color: rgba(135, 206, 235, 0.7);
+  align-self: flex-end;
   border-bottom-right-radius: 0;
-  text-align: right; /* Ensures text is aligned right */
 }
 
-/* Received messages (aligned to the left for others) */
 .post.received {
-  background-color: #d1e7dd;
-  align-self: flex-start; /* Aligns to the left */
+  background-color: rgba(209, 231, 221, 0.7);
+  align-self: flex-start;
   border-bottom-left-radius: 0;
-  text-align: left; /* Ensures text is aligned left */
 }
 
-/* Input container at the bottom */
+/* Like Button and Animation */
+.like-section {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 5px;
+}
+
+.heart {
+  cursor: pointer;
+  font-size: 1.2em;
+  color: #999;
+  transition: transform 0.2s, color 0.2s;
+}
+
+.heart.liked {
+  color: red;
+  transform: scale(1.2);
+}
+
+.heart:hover {
+  color: red;
+}
+
+/* Input Container */
 .post-input {
   display: flex;
   padding: 10px;
@@ -83,7 +118,7 @@
   background-color: #87ceeb;
 }
 
-/* Top tabs styling */
+/* Tabs for View Switch */
 .tabs {
   display: flex;
   justify-content: center;
@@ -100,38 +135,8 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin: 0 5px;
 }
 
 .tabs button:hover {
   background-color: #87ceeb;
-}
-
-/* Chat bubbles */
-.post {
-  padding: 10px 15px;
-  margin: 5px;
-  border-radius: 20px;
-  max-width: 60%;
-  color: white;
-  position: relative;
-  z-index: 1;
-  opacity: 0.9;
-  transition: opacity 0.3s ease;
-}
-
-/* Like button styling */
-.like-section button {
-  background: transparent;
-  border: none;
-  color: #333;
-  cursor: pointer;
-  font-size: 0.9em;
-  margin-top: 5px;
-  display: inline-flex;
-  align-items: center;
-}
-
-.like-section button:hover {
-  color: #ff5722;
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/database';
+import { FaHeart } from 'react-icons/fa'; // Import heart icon
 
 const firebaseConfig = {
 
@@ -34,23 +35,20 @@ function App() {
   const [username, setUsername] = useState(localStorage.getItem("username") || "");
   const [userColor, setUserColor] = useState(localStorage.getItem("userColor") || "");
   const [cooldown, setCooldown] = useState(false);
-  const [viewTopVoted, setViewTopVoted] = useState(false); // Toggle for top voted posts
+  const [viewTopVoted, setViewTopVoted] = useState(false);
 
-  // Load posts from Firebase
   useEffect(() => {
     const postsRef = database.ref("posts");
     postsRef.on("value", (snapshot) => {
       const data = snapshot.val();
       const loadedPosts = data ? Object.values(data) : [];
-      setPosts(loadedPosts.reverse()); // Show newest posts at the bottom
+      setPosts(loadedPosts.reverse());
     });
     return () => postsRef.off();
   }, []);
 
-  // Generate a random color for a new user
   const generateColor = () => '#' + Math.floor(Math.random()*16777215).toString(16);
 
-  // Set username and color
   const handleSetUsername = () => {
     if (username.trim()) {
       const color = userColor || generateColor();
@@ -60,45 +58,37 @@ function App() {
     }
   };
 
-  // Handle post submission with cooldown
   const handlePostSubmit = () => {
     if (newPost.trim() && username.trim() && !cooldown) {
-      const newPostObj = { content: newPost, user: username, color: userColor, likes: 0, timestamp: Date.now() };
+      const newPostObj = { content: newPost, user: username, color: userColor, likes: 0, likedByUser: false, timestamp: Date.now() };
       database.ref("posts").push(newPostObj);
-      setNewPost(""); // Clear input field
-      setCooldown(true); // Start cooldown
-
-      // Reset cooldown after 15 seconds
+      setNewPost("");
+      setCooldown(true);
       setTimeout(() => setCooldown(false), 15000);
     }
   };
 
-  // Handle liking a post
-  const handleLike = (postId, currentLikes) => {
+  const handleLike = (postId, currentLikes, likedByUser) => {
     const postRef = database.ref(`posts/${postId}`);
-    postRef.update({ likes: currentLikes + 1 });
+    postRef.update({ likes: likedByUser ? currentLikes - 1 : currentLikes + 1, likedByUser: !likedByUser });
   };
 
-  // Toggle between main feed and top-voted view
   const toggleViewTopVoted = () => {
     setViewTopVoted(!viewTopVoted);
   };
 
-  // Sort posts by likes for top-voted view
   const displayedPosts = viewTopVoted
-    ? [...posts].sort((a, b) => b.likes - a.likes) // Sort by likes in descending order
+    ? [...posts].sort((a, b) => b.likes - a.likes)
     : posts;
 
   return (
     <div className="App">
-      {/* Top tabs for toggling views */}
       <div className="tabs">
         <button onClick={toggleViewTopVoted}>
           {viewTopVoted ? "View All Posts" : "View Top Voted"}
         </button>
       </div>
 
-      {/* Username setup section */}
       {!localStorage.getItem("username") && (
         <div className="username-setup">
           <input 
@@ -111,7 +101,6 @@ function App() {
         </div>
       )}
 
-      {/* Post feed */}
       <div className="feed">
         {displayedPosts.map((post, index) => (
           <div
@@ -122,9 +111,11 @@ function App() {
             <strong>{post.user}</strong>
             <p>{post.content}</p>
             <div className="like-section">
-              <button onClick={() => handleLike(post.timestamp, post.likes)}>
-                👍 {post.likes || 0} Likes
-              </button>
+              <FaHeart 
+                className={`heart ${post.likedByUser ? 'liked' : ''}`}
+                onClick={() => handleLike(post.timestamp, post.likes, post.likedByUser)}
+              />
+              <span>{post.likes || 0}</span>
             </div>
           </div>
         ))}
