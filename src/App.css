@@ -4,7 +4,7 @@
   flex-direction: column;
   height: 100vh;  /* Full viewport height */
   justify-content: flex-end;
-  background-color: #f0f4f8;
+  background-color: #333;
 }
 
 /* Feed area - fill the space above the input */
@@ -61,5 +61,5 @@
 }
 
 .post-input button:hover {
-  background-color: #9b30ff;
+  background-color: #488294;
 }
