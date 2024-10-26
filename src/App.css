@@ -14,8 +14,8 @@
   display: flex;
   flex-direction: column-reverse; /* Newest posts at the bottom */
   padding: 10px;
-  background-color: #fff;
-  border-bottom: 1px solid #ccc;
+  background-color: #635f5f;
+  border-bottom: 1px solid #000000;
   width: 100%;
 }
 
@@ -51,7 +51,7 @@
 
 .post-input button {
   padding: 10px 20px;
-  background-color: #6a0dad;
+  background-color: #11bbb2;
   color: white;
   border: none;
   border-radius: 25px;
