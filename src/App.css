@@ -7,75 +7,47 @@
   background-color: #f0f4f8;
 }
 
-/* Username setup section */
-.username-setup {
-  display: flex;
-  padding: 10px;
-  background-color: #ffffff;
-  border-bottom: 1px solid #ccc;
-}
-
-.username-setup input {
-  flex: 1;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 25px;
-  font-size: 1.1em;
-}
-
-.username-setup button {
-  padding: 10px 20px;
-  background-color: #87ceeb; /* Light blue color */
-  color: white;
-  border: none;
-  border-radius: 25px;
-  margin-left: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.username-setup button:hover {
-  background-color: #5ab1db;
-}
-
-/* Feed with light grey background */
+/* Feed styling */
 .feed {
   flex-grow: 1;
   overflow-y: auto;
   display: flex;
   flex-direction: column-reverse;
   padding: 10px;
-  background-color: #383030;
+  background-color: #e8e8e8;
   border-bottom: 1px solid #ccc;
   width: 100%;
   position: relative;
 }
 
-/* General post styling */
+/* Chat bubbles */
 .post {
   padding: 10px 15px;
   margin: 5px;
   border-radius: 20px;
-  max-width: 80%;
-  color: #333;
-  background-color: rgba(225, 225, 225, 0.8); /* Light grey with opacity */
-  opacity: 0.9; /* Adjust opacity level for the entire message */
-  transition: opacity 0.3s ease; /* Smooth opacity transition */
+  max-width: 60%;
+  color: white;
   position: relative;
   z-index: 1;
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
 }
 
-post:hover {
-  opacity: 1;
+/* Sent messages (aligned to the right) */
+.post.sent {
+  background-color: #87ceeb;
+  align-self: flex-end;
+  border-bottom-right-radius: 0;
 }
 
-.post strong {
-  display: block;
-  font-size: 0.9em;
-  margin-bottom: 5px;
+/* Received messages (aligned to the left) */
+.post.received {
+  background-color: #d1e7dd;
+  align-self: flex-start;
+  border-bottom-left-radius: 0;
 }
 
-/* Input container fixed at the bottom */
+/* Input container at the bottom */
 .post-input {
   display: flex;
   padding: 10px;
@@ -96,7 +68,7 @@ post:hover {
 
 .post-input button {
   padding: 10px 20px;
-  background-color: #57ff65; /* Light blue color */
+  background-color: #add8e6;
   color: white;
   border: none;
   border-radius: 25px;
@@ -106,5 +78,5 @@ post:hover {
 }
 
 .post-input button:hover {
-  background-color: #3efcbd;
+  background-color: #87ceeb;
 }

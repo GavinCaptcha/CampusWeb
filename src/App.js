@@ -34,6 +34,7 @@ function App() {
   const [newPost, setNewPost] = useState("");
   const [username, setUsername] = useState(localStorage.getItem("username") || "");
   const [userColor, setUserColor] = useState(localStorage.getItem("userColor") || "");
+  const [cooldown, setCooldown] = useState(false);
 
   // Load posts from Firebase
   useEffect(() => {
@@ -41,16 +42,15 @@ function App() {
     postsRef.on("value", (snapshot) => {
       const data = snapshot.val();
       const loadedPosts = data ? Object.values(data) : [];
-      setPosts(loadedPosts.reverse());
+      setPosts(loadedPosts.reverse()); // Show newest posts at the bottom
     });
+    return () => postsRef.off();
   }, []);
 
   // Generate a random color for a new user
-  const generateColor = () => {
-    return '#' + Math.floor(Math.random()*16777215).toString(16);
-  };
+  const generateColor = () => '#' + Math.floor(Math.random()*16777215).toString(16);
 
-  // Handle username setup
+  // Set username and color
   const handleSetUsername = () => {
     if (username.trim()) {
       const color = userColor || generateColor();
@@ -60,17 +60,21 @@ function App() {
     }
   };
 
+  // Handle post submission with cooldown
   const handlePostSubmit = () => {
-    if (newPost.trim() && username.trim()) {
+    if (newPost.trim() && username.trim() && !cooldown) {
       const newPostObj = { content: newPost, user: username, color: userColor, timestamp: Date.now() };
-      database.ref("posts").push(newPostObj); // Save to Firebase
+      database.ref("posts").push(newPostObj);
       setNewPost(""); // Clear input field
+      setCooldown(true); // Start cooldown
+
+      // Reset cooldown after 15 seconds
+      setTimeout(() => setCooldown(false), 15000);
     }
   };
 
   return (
     <div className="App">
-      {/* Username setup section */}
       {!localStorage.getItem("username") && (
         <div className="username-setup">
           <input 
@@ -83,26 +87,28 @@ function App() {
         </div>
       )}
 
-      {/* Post feed */}
       <div className="feed">
         {posts.map((post, index) => (
-          <div key={index} className="post" style={{ backgroundColor: post.color }}>
+          <div
+            key={index}
+            className={`post ${post.user === username ? 'sent' : 'received'}`} 
+            style={{ backgroundColor: post.color }}
+          >
             <strong>{post.user}</strong>
             <p>{post.content}</p>
           </div>
         ))}
       </div>
 
-      {/* Post input field at the bottom */}
       <div className="post-input">
         <input 
           type="text" 
           value={newPost}
           onChange={(e) => setNewPost(e.target.value)} 
-          placeholder="Write something..." 
-          disabled={!username} // Disable until username is set
+          placeholder={cooldown ? "Please wait 15 seconds..." : "Write something..."} 
+          disabled={!username || cooldown}
         />
-        <button onClick={handlePostSubmit} disabled={!username}>Post</button>
+        <button onClick={handlePostSubmit} disabled={!username || cooldown}>Post</button>
       </div>
     </div>
   );
