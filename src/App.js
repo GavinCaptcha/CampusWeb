@@ -1,5 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import firebase from 'firebase/app';
+import 'firebase/database';
+
+// Firebase configuration (replace with your own config details)
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  databaseURL: "YOUR_DATABASE_URL",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+
+const database = firebase.database();
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -7,23 +26,22 @@ function App() {
   const [username, setUsername] = useState(localStorage.getItem("username") || "");
   const [userColor, setUserColor] = useState(localStorage.getItem("userColor") || "");
 
-  // Load posts from localStorage on initial render
+  // Load posts from Firebase
   useEffect(() => {
-    const storedPosts = JSON.parse(localStorage.getItem("posts")) || [];
-    setPosts(storedPosts);
+    const postsRef = database.ref("posts");
+    postsRef.on("value", (snapshot) => {
+      const data = snapshot.val();
+      const loadedPosts = data ? Object.values(data) : [];
+      setPosts(loadedPosts.reverse());
+    });
   }, []);
-
-  // Save posts to localStorage whenever posts change
-  useEffect(() => {
-    localStorage.setItem("posts", JSON.stringify(posts));
-  }, [posts]);
 
   // Generate a random color for a new user
   const generateColor = () => {
     return '#' + Math.floor(Math.random()*16777215).toString(16);
   };
 
-  // Set username and assign a color if one is not assigned
+  // Handle username setup
   const handleSetUsername = () => {
     if (username.trim()) {
       const color = userColor || generateColor();
@@ -35,8 +53,8 @@ function App() {
 
   const handlePostSubmit = () => {
     if (newPost.trim() && username.trim()) {
-      const newPostObj = { content: newPost, user: username, color: userColor };
-      setPosts([newPostObj, ...posts]);
+      const newPostObj = { content: newPost, user: username, color: userColor, timestamp: Date.now() };
+      database.ref("posts").push(newPostObj); // Save to Firebase
       setNewPost(""); // Clear input field
     }
   };
@@ -44,7 +62,7 @@ function App() {
   return (
     <div className="App">
       {/* Username setup section */}
-      {!username && (
+      {!localStorage.getItem("username") && (
         <div className="username-setup">
           <input 
             type="text" 
