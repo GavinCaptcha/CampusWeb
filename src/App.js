@@ -41,7 +41,13 @@ function App() {
     const postsRef = database.ref("posts");
     postsRef.on("value", (snapshot) => {
       const data = snapshot.val();
-      const loadedPosts = data ? Object.entries(data).map(([id, val]) => ({ id, ...val })) : [];
+      const loadedPosts = data
+        ? Object.entries(data).map(([id, val]) => ({
+            id,
+            ...val,
+            likedBy: Array.isArray(val.likedBy) ? val.likedBy : [], // Ensure likedBy is always an array
+          }))
+        : [];
       setPosts(loadedPosts.reverse());
     });
     return () => postsRef.off();
@@ -60,7 +66,7 @@ function App() {
 
   const handlePostSubmit = () => {
     if (newPost.trim() && username.trim() && !cooldown) {
-      const newPostObj = { content: newPost, user: username, color: userColor, likes: 0, likedByUser: false, timestamp: Date.now() };
+      const newPostObj = { content: newPost, user: username, color: userColor, likedBy: [], timestamp: Date.now() };
       database.ref("posts").push(newPostObj);
       setNewPost("");
       setCooldown(true);
@@ -68,9 +74,21 @@ function App() {
     }
   };
 
-  const handleLike = (postId, currentLikes, likedByUser) => {
+  const handleLike = (postId, likedBy) => {
     const postRef = database.ref(`posts/${postId}`);
-    postRef.update({ likes: likedByUser ? currentLikes - 1 : currentLikes + 1, likedByUser: !likedByUser });
+    const hasLiked = likedBy.includes(username);
+
+    if (hasLiked) {
+      // Remove user's like
+      postRef.update({
+        likedBy: likedBy.filter(user => user !== username)
+      });
+    } else {
+      // Add user's like
+      postRef.update({
+        likedBy: [...likedBy, username]
+      });
+    }
   };
 
   const toggleViewTopVoted = () => {
@@ -78,7 +96,7 @@ function App() {
   };
 
   const displayedPosts = viewTopVoted
-    ? [...posts].sort((a, b) => b.likes - a.likes)
+    ? [...posts].sort((a, b) => b.likedBy.length - a.likedBy.length)
     : posts;
 
   return (
@@ -108,6 +126,7 @@ function App() {
             post={post}
             isCurrentUser={post.user === username}
             onLike={handleLike}
+            currentUser={username}
           />
         ))}
       </div>
