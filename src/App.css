@@ -37,7 +37,7 @@
 /* Received message (other users) - aligned to left */
 .post.received {
   background-color: rgba(209, 231, 221, 0.7);
-  align-self: flex-start;
+  align: left;
   border-bottom-left-radius: 0;
 }
 
