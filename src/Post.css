@@ -22,7 +22,7 @@
   /* Received (other user's message) aligned to the left */
   .post.received {
     background-color: rgba(209, 231, 221, 0.7);
-    align-self: flex-start;
+    position: left;
     border-bottom-left-radius: 0;
     margin-left: 20px;
   }
