@@ -67,15 +67,15 @@
   color: red;
 }
 
-/* Input container styling */
 .post-input {
   display: flex;
   padding: 10px;
   background-color: #fff;
   border-top: 1px solid #ccc;
-  position: sticky;
+  position: fixed; /* Fix the position */
   bottom: 0;
   width: 100%;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .post-input input {
@@ -99,4 +99,27 @@
 
 .post-input button:hover {
   background-color: #87ceeb;
+}
+
+/* Spinning "CS" Background */
+.spinning-cs {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 8em;
+  color: rgba(150, 150, 150, 0.1);
+  font-weight: bold;
+  z-index: 0;
+  pointer-events: none;
+  animation: spin 20s linear infinite; /* Slow spin */
+}
+
+@keyframes spin {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }

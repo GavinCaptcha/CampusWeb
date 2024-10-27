@@ -119,18 +119,18 @@ function App() {
         </div>
       )}
 
-      <div className="feed">
-        {displayedPosts.map((post) => (
-          <Post 
-            key={post.id}
-            post={post}
-            isCurrentUser={post.user === username}
-            onLike={handleLike}
-            currentUser={username}
-          />
-        ))}
-      </div>
-
+<div className="feed">
+  <div className="spinning-cs">CS</div> {/* Spinning "CS" */}
+  {displayedPosts.map((post) => (
+    <Post 
+      key={post.id}
+      post={post}
+      isCurrentUser={post.user === username}
+      onLike={handleLike}
+      currentUser={username}
+    />
+  ))}
+</div>
       <div className="post-input">
         <input 
           type="text" 
