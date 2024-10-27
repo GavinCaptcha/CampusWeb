@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/database';
-import { FaHeart } from 'react-icons/fa'; // Import heart icon
+import Post from './Post'; // Import the Post component
 
 const firebaseConfig = {
 
@@ -41,7 +41,7 @@ function App() {
     const postsRef = database.ref("posts");
     postsRef.on("value", (snapshot) => {
       const data = snapshot.val();
-      const loadedPosts = data ? Object.values(data) : [];
+      const loadedPosts = data ? Object.entries(data).map(([id, val]) => ({ id, ...val })) : [];
       setPosts(loadedPosts.reverse());
     });
     return () => postsRef.off();
@@ -102,22 +102,13 @@ function App() {
       )}
 
       <div className="feed">
-        {displayedPosts.map((post, index) => (
-          <div
-            key={index}
-            className={`post ${post.user === username ? 'sent' : 'received'}`} 
-            style={{ backgroundColor: post.color }}
-          >
-            <strong>{post.user}</strong>
-            <p>{post.content}</p>
-            <div className="like-section">
-              <FaHeart 
-                className={`heart ${post.likedByUser ? 'liked' : ''}`}
-                onClick={() => handleLike(post.timestamp, post.likes, post.likedByUser)}
-              />
-              <span>{post.likes || 0}</span>
-            </div>
-          </div>
+        {displayedPosts.map((post) => (
+          <Post 
+            key={post.id}
+            post={post}
+            isCurrentUser={post.user === username}
+            onLike={handleLike}
+          />
         ))}
       </div>
 
@@ -136,4 +127,3 @@ function App() {
 }
 
 export default App;
-
