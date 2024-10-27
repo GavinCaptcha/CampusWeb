@@ -1,28 +1,6 @@
 /* App.css */
 
-.App {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  justify-content: flex-end;
-  background-color: #f0f4f8;
-  overflow-x: hidden;
-}
-
-/* Watermark Text */
-.feed::before {
-  content: "CampusShout";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 5em;
-  color: rgba(100, 100, 100, 0.1);
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Feed Styling */
+/* Main feed styling */
 .feed {
   flex-grow: 1;
   overflow-y: auto;
@@ -35,7 +13,7 @@
   position: relative;
 }
 
-/* Post Bubble */
+/* Post bubble */
 .post {
   padding: 10px 15px;
   margin: 5px;
@@ -46,31 +24,36 @@
   position: relative;
   z-index: 1;
   transition: background-color 0.3s ease;
+  display: inline-block;
 }
 
+/* Sent message (current user) - aligned to right */
 .post.sent {
   background-color: rgba(135, 206, 235, 0.7);
   align-self: flex-end;
   border-bottom-right-radius: 0;
 }
 
+/* Received message (other users) - aligned to left */
 .post.received {
   background-color: rgba(209, 231, 221, 0.7);
   align-self: flex-start;
   border-bottom-left-radius: 0;
 }
 
-/* Like Button and Animation */
+/* Like button styling within post */
 .like-section {
   display: flex;
   align-items: center;
-  gap: 5px;
   margin-top: 5px;
+  gap: 5px;
+  color: #333;
 }
 
+/* Heart icon styling */
 .heart {
   cursor: pointer;
-  font-size: 1.2em;
+  font-size: 1em;
   color: #999;
   transition: transform 0.2s, color 0.2s;
 }
@@ -80,11 +63,11 @@
   transform: scale(1.2);
 }
 
-.heart:hover {
+.like-section:hover .heart {
   color: red;
 }
 
-/* Input Container */
+/* Input container styling */
 .post-input {
   display: flex;
   padding: 10px;
@@ -115,28 +98,5 @@
 }
 
 .post-input button:hover {
-  background-color: #87ceeb;
-}
-
-/* Tabs for View Switch */
-.tabs {
-  display: flex;
-  justify-content: center;
-  padding: 10px;
-  background-color: #ffffff;
-  border-bottom: 1px solid #ccc;
-}
-
-.tabs button {
-  padding: 10px 20px;
-  background-color: #add8e6;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.tabs button:hover {
   background-color: #87ceeb;
 }
